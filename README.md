@@ -1,4 +1,4 @@
-# CMS Detect ~ By Lore<3
+# CMS Detect - By Lore<3
 
 ### A working CMS detector written in python.
 
