@@ -61,9 +61,8 @@ class CMSDetect(Session):
             Returns: CMS name
         """
         for category in DETECTION:
-            for string in DETECTION[category]:
-                if string in resp:
-                    return category 
+            if [string for string in DETECTION[category] if string in resp]:
+                return category
                     
     #############################################################
     """Main methods."""
