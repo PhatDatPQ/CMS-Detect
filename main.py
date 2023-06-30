@@ -41,11 +41,11 @@ class CMSDetect(Session):
         """
         # Look for http(s)://www. and http(s)://
         for prefix in HTTP_PREFIXS:
-            if f'{prefix}://www.' in domain:
-                domain: str = domain.partition(f'{prefix}://www.')[2]
-                
-            elif f'{prefix}://' in domain:
-                domain: str = domain.partition(f'{prefix}://')[2]
+            for extra_prefix in ('//','://www'):
+                if (swap := f'{prefix}{extra_prefix}') in domain:
+                    domain: str = domain.partition(swap)[2]
+                    
+
                 
         if '/' in domain:
             domain: str = domain.partition('/')[0]
@@ -63,7 +63,6 @@ class CMSDetect(Session):
         for category in DETECTION:
             if [string for string in DETECTION[category] if string in resp]:
                 return category
-                    
     #############################################################
     """Main methods."""
         
