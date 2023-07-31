@@ -1,11 +1,11 @@
-HTTP_PREFIXS: tuple = (
+HTTP_PREFIXS: tuple[str, str] = (
     'http',
     'https'
 )
 
-ENDPOINTS: tuple = (
+ENDPOINTS: tuple[str, ...] = (
     '',
-    'administrator/help/en-GB/toc.json',
+    '/administrator/help/en-GB/toc.json',
     '/administrator/language/en-GB/install.xml',
     '/plugins/system/debug/debug.xml',
     '/administrator/',
