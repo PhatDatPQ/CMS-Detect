@@ -2,6 +2,7 @@ from concurrent.futures import ThreadPoolExecutor
 from requests           import Session
 from time               import time
 
+
 from lib.constants import (
     HTTP_PREFIXS,
     ENDPOINTS,
@@ -11,9 +12,10 @@ from lib.constants import (
 from lib.theme import Colors
 
 
+
 class CMSDetect(Session):
     """Module can be used for anything."""
-    def __init__(self: object, domain: str = 'http://google.com') -> None:
+    def __init__(self, domain: str = 'http://google.com') -> None:
         super().__init__() 
     
         self._domain: str  = domain
@@ -24,11 +26,11 @@ class CMSDetect(Session):
     #############################################################
     """Property methods."""
     @property
-    def domain(self: object) -> str:
+    def domain(self) -> str:
         return self._domain
     
     @domain.setter
-    def domain(self: object, domain: str) -> None:
+    def domain(self, domain: str) -> None:
         if not isinstance(domain, str):
             raise TypeError
 
@@ -90,7 +92,7 @@ class CMSDetect(Session):
             return
                        
                 
-    def get_results(self: object) -> None:
+    def get_results(self) -> None:
         """
         Execute the module:
         
@@ -103,7 +105,7 @@ class CMSDetect(Session):
                 [executor.submit(self.send_request, f"{prefix}://{self.domain}{endpoint}") for prefix in HTTP_PREFIXS]
                 
                 
-session: object = CMSDetect()  
+session: CMSDetect = CMSDetect()  
 print(f'\x1bc{Colors.BANNER}')       
 if __name__ == '__main__':  
     while True:
@@ -122,3 +124,4 @@ if __name__ == '__main__':
             
         print(f'\n{Colors.WHITE}Execution speed: {Colors.PINK}{time() - start} {Colors.WHITE}seconds.\n') 
                 
+    
