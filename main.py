@@ -4,7 +4,7 @@ from time               import time
 
 
 from lib.constants import (
-    HTTP_PREFIXS,
+    HTTP_PREFIXES,
     ENDPOINTS,
     DETECTION
 )
@@ -41,10 +41,13 @@ class CMSDetect(Session):
         
     @staticmethod
     def check_url(domain: str) -> str:
-        """
-        Detects if a URL is passed and only selects the domain.
-        
-            Returns: The domain
+        """Detects if a URL is passed and only selects the domain.
+
+        Args:
+            domain(str): Host domain
+
+        Returns: 
+            The domain
         """
         # Look for http(s)://www. and http(s)://
         for prefix in HTTP_PREFIXS:
@@ -60,10 +63,13 @@ class CMSDetect(Session):
         
     @staticmethod
     def detect(resp: str) -> str:
-        """
-        Detect the CMS with specific strings
-        
-            Returns: CMS name
+        """Detect the CMS with specific strings
+    
+        Args:
+            resp(str): Request text response
+            
+        Returns: 
+            CMS name
         """
         for category in DETECTION:
             if tuple(string for string in DETECTION[category] if string in resp):
@@ -73,10 +79,13 @@ class CMSDetect(Session):
     """Main methods."""
         
     def send_request(self, url: str) -> None: 
-        """
-        Send request to the URL and grab the content
+        """Send request to the URL and grab the content
         
-            Returns: None
+        Args:
+            URL(str): Request URL
+        
+        Returns: 
+            None
         
         """
         try:
@@ -93,16 +102,23 @@ class CMSDetect(Session):
                        
                 
     def get_results(self) -> None:
-        """
-        Execute the module:
+        """Execute the module:
+
+        Args:
+            None
         
-            Returns: None
+        Returns: 
+            None
         """
         self.results.clear()
         
-        with ThreadPoolExecutor(max_workers=800) as executor:
-            for endpoint in ENDPOINTS:
-                [executor.submit(self.send_request, f"{prefix}://{self.domain}{endpoint}") for prefix in HTTP_PREFIXS]
+        with ThreadPoolExecutor(max_workers=400) as executor:
+            tuple(
+                tuple(
+                    executor.submit(self.send_request,f'{prefix}://{self.domain}{endpoint}') for prefix in HTTP_PREFIXES
+                )
+                for endpoint in ENDPOINTS
+            )
                 
                 
 session: CMSDetect = CMSDetect()  
