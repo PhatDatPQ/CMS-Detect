@@ -50,7 +50,7 @@ class CMSDetect(Session):
             The domain
         """
         # Look for http(s)://www. and http(s)://
-        for prefix in HTTP_PREFIXS:
+        for prefix in HTTP_PREFIXES:
             for extra_prefix in ('://','://www'):
                 if (swap := f'{prefix}{extra_prefix}') in domain:
                     domain: str = domain.partition(swap)[2]
