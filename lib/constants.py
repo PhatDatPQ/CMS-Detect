@@ -1,4 +1,4 @@
-HTTP_PREFIXS: tuple[str, str] = (
+HTTP_PREFIXES: tuple[str, str] = (
     'http',
     'https'
 )
