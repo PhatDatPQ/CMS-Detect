@@ -93,17 +93,18 @@ class CMSDetect(Session):
             None
         
         """
+        resp: str | None = None
+        
         try:
-            cms: str = self.detect(self.get(
+            resp: str = self.get(
                 url     = url,
                 timeout = 5
-            ).text)
-            
-            if cms and not cms in self.results:
-                self.results.append(cms)
-
+            ).text
         except:
             return
+        
+        if resp and (cms := self.detect(resp)) and not cms in self.results:
+            self.results.append(cms)
                        
                 
     def get_results(self) -> None:
