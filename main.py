@@ -71,9 +71,14 @@ class CMSDetect(Session):
         Returns: 
             CMS name
         """
-        for category in DETECTION:
-            if tuple(string for string in DETECTION[category] if string in resp):
-                return category
+        return ''.join(
+            tuple(
+                category for category in DETECTION if tuple(
+                    string for string in DETECTION[category] 
+                    if string in resp
+                )
+            )
+        )
             
     #############################################################
     """Main methods."""
