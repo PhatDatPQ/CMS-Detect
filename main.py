@@ -109,9 +109,6 @@ class CMSDetect(Session):
                 
     def get_results(self) -> None:
         """Execute the module:
-
-        Args:
-            None
         
         Returns: 
             None
